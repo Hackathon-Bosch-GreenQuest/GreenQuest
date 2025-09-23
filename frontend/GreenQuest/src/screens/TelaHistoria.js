@@ -5,7 +5,7 @@ const TelaHistoria = () => {
   return (
     <View style={styles.container}>
 
-      <Image source={require('../assets/Hud.png')} style={styles.hud} />
+      <Image source={require('../../assets/Hud.png')} style={styles.hud} />
 
       <ScrollView contentContainerStyle={styles.chatContainer}>
         <View style={styles.mensagemBot}>
@@ -41,7 +41,7 @@ const TelaHistoria = () => {
       </ScrollView>
 
       {/* Teclado fake (imagem fixa embaixo) */}
-      <Image source={require('../assets/Telado.png')} style={styles.teclado} />
+      <Image source={require('../../assets/Teclado.png')} style={styles.teclado} />
     </View>
   );
 };
