@@ -22,7 +22,15 @@ Responda apenas em JSON válido, sem texto fora do JSON.
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    let text = result.response.text();
+
+    // Lógica para extrair o JSON da resposta
+    const jsonStartIndex = text.indexOf('{');
+    const jsonEndIndex = text.lastIndexOf('}');
+
+    if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
+      text = text.substring(jsonStartIndex, jsonEndIndex + 1);
+    }
 
     let perguntas;
     try {
