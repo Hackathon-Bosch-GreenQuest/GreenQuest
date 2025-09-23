@@ -5,7 +5,13 @@ const TelaHistoria = () => {
   return (
     <View style={styles.container}>
 
-      <Image source={require('../../assets/Hud.png')} style={styles.hud} />
+      {/* HUD da conversa */}
+      <View style={styles.hudContainer}>
+        <Image
+          source={require('../../assets/ConversaHud.png')}
+          style={styles.avatar}
+        />
+      </View>
 
       <ScrollView contentContainerStyle={styles.chatContainer}>
         <View style={styles.mensagemBot}>
@@ -51,18 +57,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  hud: {
+  hudContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatar: {
     width: '100%',
-    height: 40, // ajuste de acordo com a altura real da imagem Hud.png
-    resizeMode: 'stretch',
+    height: 75,
+  },
+  hudTitulo: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   chatContainer: {
     padding: 12,
-    paddingBottom: 80, // deixa espaço pro teclado
+    paddingBottom: 80, // espaço pro teclado
   },
   mensagemBot: {
     alignSelf: 'flex-start',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#579B26',
     padding: 10,
     borderRadius: 16,
     marginVertical: 4,
@@ -70,7 +84,7 @@ const styles = StyleSheet.create({
   },
   textoBot: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 20,
   },
   mensagemUser: {
     alignSelf: 'flex-end',
@@ -81,13 +95,16 @@ const styles = StyleSheet.create({
     maxWidth: '80%',
   },
   textoUser: {
-    color: '#000',
-    fontSize: 14,
+    color: '#000000ff',
+    fontSize: 20,
   },
   teclado: {
     width: '100%',
-    height: 80,
+    height: 340,
     resizeMode: 'stretch',
+    marginBottom: 0,
+    position: 'absolute',
+    bottom: 0,
   },
 });
 
