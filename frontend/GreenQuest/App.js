@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TelaIntroducao from "./src/screens/TelaIntroducao";
 import TelaHistoria from "./src/screens/TelaHistoria";
 import TelaCarregamento from "./src/screens/TelaCarregamento";
+import TelaTutorial from "./src/screens/TelaTutorial";
 // depois vamos criar Quiz e Ranking
 function Quiz() {
   return null;
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="TelaCarregamento" component={TelaCarregamento} options={{ headerShown: false }} />
         <Stack.Screen name="TelaHistoria" component={TelaHistoria} />
         <Stack.Screen name="TelaIntroducao" component={TelaIntroducao} />
+         <Stack.Screen name="TelaTutorial" component={TelaTutorial} />
         <Stack.Screen name="Quiz" component={Quiz} />
         <Stack.Screen name="Ranking" component={Ranking} />
       </Stack.Navigator>
