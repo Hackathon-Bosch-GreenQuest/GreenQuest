@@ -28,7 +28,7 @@ const TelaIntroducao = () => {
           setMensagensVisiveis(prev => [...prev, msgAtual]);
         }
         i++;
-        setTimeout(mostrarMensagem, 1000); // delay de 1 segundo entre cada mensagem
+        setTimeout(mostrarMensagem, 1500); // delay de 1 segundo entre cada mensagem
       } else {
         setMostrarLink(true); // exibe última mensagem clicável
       }

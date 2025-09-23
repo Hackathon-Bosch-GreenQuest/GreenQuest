@@ -30,7 +30,7 @@ const TelaHistoria = () => {
           setMensagensVisiveis(prev => [...prev, msgAtual]);
         }
         i++;
-        setTimeout(mostrarMensagem, 1000);
+        setTimeout(mostrarMensagem, 1500);
       } else {
         setMostrarLink(true);
       }
