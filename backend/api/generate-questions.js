@@ -24,19 +24,17 @@ Responda apenas em JSON válido, sem texto fora do JSON.
     const result = await model.generateContent(prompt);
     let text = result.response.text();
 
-    // Esta lógica extrai apenas o JSON, removendo qualquer texto extra
-    const jsonStartIndex = text.indexOf('{');
-    const jsonEndIndex = text.lastIndexOf('}');
-
-    if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
-      text = text.substring(jsonStartIndex, jsonEndIndex + 1);
+    // Lógica mais robusta para limpar o JSON
+    text = text.trim();
+    if (text.startsWith('```json')) {
+      text = text.substring(7, text.length - 3).trim();
     }
-
+    
     let perguntas;
     try {
       perguntas = JSON.parse(text);
     } catch (e) {
-      return res.status(500).json({ error: "Erro ao converter JSON: " + e.message });
+      return res.status(500).json({ error: "Erro ao converter JSON: " + e.message, rawText: text });
     }
 
     res.status(200).json(perguntas);
