@@ -95,7 +95,7 @@ const TelaTutorial = () => {
         {/* Botão de próximo passo */}
         <TouchableOpacity
           style={styles.mensagemfinalBot}
-          onPress={() => navigation.navigate("Quiz")}
+          onPress={() => navigation.navigate("TelaPreQuiz")}
         >
           <Text style={styles.textofinalBot}>Próximo passo</Text>
         </TouchableOpacity>
