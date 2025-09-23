@@ -4,12 +4,16 @@ import { View, Text, Button, Modal, TextInput, StyleSheet, Image } from "react-n
 export default function TelaCarregamento({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
 
   const entrar = () => {
-    if (nome.trim() !== "") {
+    if (nome.trim() !== "" && email.trim() !== "" && senha.trim() !== "") {
       setModalVisible(false);
-      // leva para a tela do Quiz passando o nome
-      navigation.navigate("TelaHistoria", { usuario: nome });
+      // leva para a tela do Quiz passando os dados
+      navigation.navigate("TelaHistoria", { usuario: nome, email: email });
+    } else {
+      alert("Preencha todos os campos!");
     }
   };
 
@@ -17,7 +21,7 @@ export default function TelaCarregamento({ navigation }) {
     <View style={styles.container}>
       {/* Mascote */}
       <Image
-        source={require("../../assets/planeta.png")} // coloca sua imagem do planeta na pasta assets
+        source={require("../../assets/planeta.png")}
         style={styles.imagem}
       />
 
@@ -28,13 +32,32 @@ export default function TelaCarregamento({ navigation }) {
       <Modal visible={modalVisible} transparent animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalBox}>
-            <Text style={styles.titulo}>Insira seu nome de usuário:</Text>
+            <Text style={styles.titulo}>Insira seus dados:</Text>
+
             <TextInput
               style={styles.input}
               placeholder="Digite seu nome"
               value={nome}
               onChangeText={setNome}
             />
+
+            <TextInput
+              style={styles.input}
+              placeholder="Digite seu email"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholder="Digite sua senha"
+              value={senha}
+              onChangeText={setSenha}
+              secureTextEntry={true} // esconde a senha
+            />
+
             <Button title="Entrar" onPress={entrar} />
           </View>
         </View>
