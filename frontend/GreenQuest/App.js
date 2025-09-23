@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+
+import TelaHistoria from "./src/screens/TelaHistoria";
+import TelaCarregamento from "./src/screens/TelaCarregamento";
+// depois vamos criar Quiz e Ranking
+function Quiz() {
+  return null;
+}
+function Ranking() {
+  return null;
+}
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="TelaCarregamento">
+        <Stack.Screen name="TelaCarregamento" component={TelaCarregamento} options={{ headerShown: false }} />
+        <Stack.Screen name="TelaHistoria" component={TelaHistoria} />
+        <Stack.Screen name="Quiz" component={Quiz} />
+        <Stack.Screen name="Ranking" component={Ranking} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
