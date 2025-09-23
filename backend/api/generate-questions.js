@@ -24,12 +24,18 @@ Responda apenas em JSON válido, sem texto fora do JSON.
     const result = await model.generateContent(prompt);
     let text = result.response.text();
 
-    // Lógica mais robusta para limpar o JSON
-    text = text.trim();
-    if (text.startsWith('```json')) {
-      text = text.substring(7, text.length - 3).trim();
+    // Lógica final e mais robusta para extrair o JSON
+    const jsonMatch = text.match(/```json\n([\s\S]*?)\n```/);
+    if (jsonMatch && jsonMatch[1]) {
+      text = jsonMatch[1].trim();
+    } else {
+      const firstBrace = text.indexOf('{');
+      const lastBrace = text.lastIndexOf('}');
+      if (firstBrace !== -1 && lastBrace !== -1) {
+        text = text.substring(firstBrace, lastBrace + 1);
+      }
     }
-    
+
     let perguntas;
     try {
       perguntas = JSON.parse(text);
