@@ -1,6 +1,19 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" }
+    {
+      "src": "backend/api/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/generate-questions",
+      "destination": "/backend/api/generate-questions.js"
+    },
+    {
+      "source": "/api/explain-answer",
+      "destination": "/backend/api/explain-answer.js"
+    }
   ]
 }
