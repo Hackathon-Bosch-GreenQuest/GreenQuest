@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-// Array com todas as mensagens "normais" do chat
+// Todas as mensagens na ordem correta
 const mensagens = [
   { tipo: 'bot', texto: 'Que tal embarcar comigo nessa jornada para cuidar melhor do planeta onde você vive?' },
-  { tipo: 'user', texto: 'Que jornada?' },
+  { tipo: 'user', texto: 'Que jornada?' }, 
   { tipo: 'bot', texto: 'Minha missão é te ensinar sobre sustentabilidade e reciclagem' },
   { tipo: 'bot', texto: 'Sustentabilidade é quando a gente cuida do planeta sem atrapalhar o futuro' },
   { tipo: 'bot', texto: 'Isso significa economizar água, energia e usar os recursos de forma responsável. Assim, garantimos que a Terra continue saudável para todos!' },
@@ -16,19 +16,22 @@ const mensagens = [
 
 const TelaHistoria = () => {
   const navigation = useNavigation();
+  const scrollRef = useRef(null);
   const [mensagensVisiveis, setMensagensVisiveis] = useState([]);
-  const [mostrarLink, setMostrarLink] = useState(false); // controla a última mensagem clicável
+  const [mostrarLink, setMostrarLink] = useState(false);
 
   useEffect(() => {
     let i = 0;
 
     const mostrarMensagem = () => {
       if (i < mensagens.length) {
-        setMensagensVisiveis(prev => [...prev, mensagens[i]]);
+        const msgAtual = mensagens[i];
+        if (msgAtual) { 
+          setMensagensVisiveis(prev => [...prev, msgAtual]);
+        }
         i++;
-        setTimeout(mostrarMensagem, 1000); // 1 segundo de delay
+        setTimeout(mostrarMensagem, 1500);
       } else {
-        // Depois que todas as mensagens foram exibidas, mostrar a última mensagem clicável
         setMostrarLink(true);
       }
     };
@@ -36,21 +39,25 @@ const TelaHistoria = () => {
     mostrarMensagem();
   }, []);
 
+  // Scroll automático sempre que uma nova mensagem aparecer
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollToEnd({ animated: true });
+    }
+  }, [mensagensVisiveis, mostrarLink]);
+
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/Hud.png')} style={styles.hud} />
 
-      {/* HUD da conversa */}
       <View style={styles.hudContainer}>
-        <Image
-          source={require('../../assets/ConversaHud.png')}
-          style={styles.avatar}
-        />
+        <Image source={require('../../assets/ConversaHud.png')} style={styles.avatar} />
       </View>
 
-      {/* ScrollView com paddingBottom suficiente para o teclado */}
-      <ScrollView contentContainerStyle={[styles.chatContainer, { paddingBottom: 360 }]}>
-        {/* Renderiza todas as mensagens normais */}
+      <ScrollView
+        ref={scrollRef}
+        contentContainerStyle={[styles.chatContainer, { paddingBottom: 360 }]}
+      >
         {mensagensVisiveis.map((msg, index) =>
           msg ? (
             <View
@@ -64,7 +71,6 @@ const TelaHistoria = () => {
           ) : null
         )}
 
-        {/* Última mensagem clicável */}
         {mostrarLink && (
           <TouchableOpacity
             style={styles.mensagemfinalBot}
@@ -77,7 +83,6 @@ const TelaHistoria = () => {
         )}
       </ScrollView>
 
-      {/* Teclado fake (imagem fixa embaixo) */}
       <Image source={require('../../assets/Teclado.png')} style={styles.teclado} />
     </View>
   );
