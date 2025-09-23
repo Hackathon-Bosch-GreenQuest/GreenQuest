@@ -24,7 +24,7 @@ Responda apenas em JSON válido, sem texto fora do JSON.
     const result = await model.generateContent(prompt);
     let text = result.response.text();
 
-    // Lógica para extrair o JSON da resposta
+    // Esta lógica extrai apenas o JSON, removendo qualquer texto extra
     const jsonStartIndex = text.indexOf('{');
     const jsonEndIndex = text.lastIndexOf('}');
 
