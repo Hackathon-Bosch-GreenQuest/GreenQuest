@@ -1,46 +1,15 @@
 import React, { useState } from "react";
 import { View, Text, Button, Modal, TextInput, StyleSheet, Image } from "react-native";
-import { signUpUser, signInUser } from '../services/firebaseService';
-
 
 export default function TelaCarregamento({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
 
-  const entrar = async () => {
-    if (nome.trim() !== "" && email.trim() !== "" && senha.trim() !== "") {
-      try {
-       
-        const credencial = await signInUser(email, senha);
-        // Navega passando dados do usuário autenticado
-        navigation.navigate("TelaHistoria", {
-          usuario: nome,
-          email: credencial.user.email,
-          uid: credencial.user.uid,
-        });
-
-        setModalVisible(false);
-      } catch (error) {
-        // Se não existe, cria conta nova
-        try {
-          const novoUsuario = await signUpUser(email, senha, nome);
-
-          navigation.navigate("TelaHistoria", {
-            usuario: nome,
-            email: novoUsuario.email,
-            uid: novoUsuario.uid,
-          });
-
-          setModalVisible(false);
-        } catch (e) {
-          console.error("Erro no cadastro:", e);
-          alert("Erro ao criar usuário. Verifique os dados.");
-        }
-      }
-    } else {
-      alert("Preencha todos os campos!");
+  const entrar = () => {
+    if (nome.trim() !== "") {
+      setModalVisible(false);
+      // leva para a tela do Quiz passando o nome
+      navigation.navigate("TelaHistoria", { usuario: nome });
     }
   };
 
@@ -48,7 +17,7 @@ export default function TelaCarregamento({ navigation }) {
     <View style={styles.container}>
       {/* Mascote */}
       <Image
-        source={require("../../assets/planeta.png")}
+        source={require("../../assets/planeta.png")} // coloca sua imagem do planeta na pasta assets
         style={styles.imagem}
       />
 
@@ -59,32 +28,13 @@ export default function TelaCarregamento({ navigation }) {
       <Modal visible={modalVisible} transparent animationType="slide">
         <View style={styles.modalContainer}>
           <View style={styles.modalBox}>
-            <Text style={styles.titulo}>Insira seus dados:</Text>
-
+            <Text style={styles.titulo}>Insira seu nome de usuário:</Text>
             <TextInput
               style={styles.input}
               placeholder="Digite seu nome"
               value={nome}
               onChangeText={setNome}
             />
-
-            <TextInput
-              style={styles.input}
-              placeholder="Digite seu email"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
-
-            <TextInput
-              style={styles.input}
-              placeholder="Digite sua senha"
-              value={senha}
-              onChangeText={setSenha}
-              secureTextEntry={true}
-            />
-
             <Button title="Entrar" onPress={entrar} />
           </View>
         </View>

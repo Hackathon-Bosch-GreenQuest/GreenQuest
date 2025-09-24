@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
-import { getTopRanking } from '../services/firebaseService'; 
+
 
 const rankingData = [
   { posicao: "1º", nome: "Carlos", pontos: "80pt" },
