@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Button, Modal, TextInput, StyleSheet, Image } from "react-native";
+import { signUpUser, signInUser } from '../services/firebaseService';
 
 export default function TelaCarregamento({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
