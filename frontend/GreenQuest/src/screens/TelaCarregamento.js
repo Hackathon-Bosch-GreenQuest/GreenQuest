@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Button, Modal, TextInput, StyleSheet, Image } from "react-native";
-import { signInUser, CriaPerfil } from "../../services/firebaseService"; 
+import { signUpUser, signInUser } from '../services/firebaseService';
+
 
 export default function TelaCarregamento({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -24,7 +25,7 @@ export default function TelaCarregamento({ navigation }) {
       } catch (error) {
         // Se não existe, cria conta nova
         try {
-          const novoUsuario = await CriaPerfil(email, senha, nome);
+          const novoUsuario = await signUpUser(email, senha, nome);
 
           navigation.navigate("TelaHistoria", {
             usuario: nome,

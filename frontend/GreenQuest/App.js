@@ -1,4 +1,5 @@
 import * as React from "react";
+import './src/services/firebaseConfig';
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import TelaIntroducao from "./src/screens/TelaIntroducao";
