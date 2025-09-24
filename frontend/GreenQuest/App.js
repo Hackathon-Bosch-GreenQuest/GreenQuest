@@ -6,6 +6,7 @@ import TelaHistoria from "./src/screens/TelaHistoria";
 import TelaCarregamento from "./src/screens/TelaCarregamento";
 import TelaTutorial from "./src/screens/TelaTutorial";
 import TelaPreQuiz from "./src/screens/TelaPreQuiz";
+import TelaRanking from "./src/screens/TelaRanking";
 // depois vamos criar Quiz e Ranking
 function Quiz() {
   return null;
@@ -26,7 +27,7 @@ export default function App() {
          <Stack.Screen name="TelaTutorial" component={TelaTutorial} />
         <Stack.Screen name="Quiz" component={Quiz} />
         <Stack.Screen name="TelaPreQuiz" component={TelaPreQuiz} />
-        <Stack.Screen name="Ranking" component={Ranking} />
+        <Stack.Screen name="Ranking" component={TelaRanking} />
       </Stack.Navigator>
     </NavigationContainer>
   );
