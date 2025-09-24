@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Button, Modal, TextInput, StyleSheet, Image } from "react-native";
+import { signInUser, CriaPerfil } from "../../services/firebaseService"; 
 
 export default function TelaCarregamento({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -7,11 +8,36 @@ export default function TelaCarregamento({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  const entrar = () => {
+  const entrar = async () => {
     if (nome.trim() !== "" && email.trim() !== "" && senha.trim() !== "") {
-      setModalVisible(false);
-      // leva para a tela do Quiz passando os dados
-      navigation.navigate("TelaHistoria", { usuario: nome, email: email });
+      try {
+       
+        const credencial = await signInUser(email, senha);
+        // Navega passando dados do usuário autenticado
+        navigation.navigate("TelaHistoria", {
+          usuario: nome,
+          email: credencial.user.email,
+          uid: credencial.user.uid,
+        });
+
+        setModalVisible(false);
+      } catch (error) {
+        // Se não existe, cria conta nova
+        try {
+          const novoUsuario = await CriaPerfil(email, senha, nome);
+
+          navigation.navigate("TelaHistoria", {
+            usuario: nome,
+            email: novoUsuario.email,
+            uid: novoUsuario.uid,
+          });
+
+          setModalVisible(false);
+        } catch (e) {
+          console.error("Erro no cadastro:", e);
+          alert("Erro ao criar usuário. Verifique os dados.");
+        }
+      }
     } else {
       alert("Preencha todos os campos!");
     }
@@ -55,7 +81,7 @@ export default function TelaCarregamento({ navigation }) {
               placeholder="Digite sua senha"
               value={senha}
               onChangeText={setSenha}
-              secureTextEntry={true} // esconde a senha
+              secureTextEntry={true}
             />
 
             <Button title="Entrar" onPress={entrar} />
