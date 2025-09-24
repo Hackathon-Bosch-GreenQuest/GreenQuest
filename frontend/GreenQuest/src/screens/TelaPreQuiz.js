@@ -70,7 +70,7 @@ const TelaPreQuiz = () => {
         {mostrarLink && (
           <TouchableOpacity
             style={styles.mensagemfinalBot}
-            onPress={() => navigation.navigate('Quiz')}
+            onPress={() => navigation.navigate('TelaQuiz')}
           >
             <Text style={styles.textofinalBot}>
               Jogar!
