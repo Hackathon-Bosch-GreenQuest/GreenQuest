@@ -2,17 +2,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Método não permitido" });
+export default async function explainAnswer(req, res) {
+  const { question, correctAnswer } = req.body;
+  if (!question || !correctAnswer) {
+    throw new Error("Faltam parâmetros");
   }
 
   try {
-    const { question, correctAnswer } = req.body;
-    if (!question || !correctAnswer) {
-      return res.status(400).json({ error: "Faltam parâmetros." });
-    }
-
     const prompt = `
 Explique de forma clara e resumida por que a resposta correta para a pergunta "${question}" é "${correctAnswer}".
 `;
@@ -21,8 +17,9 @@ Explique de forma clara e resumida por que a resposta correta para a pergunta "$
     const result = await model.generateContent(prompt);
     const explicacao = result.response.text();
 
-    res.status(200).json({ explicacao });
+    return { explicacao };
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    throw new Error("Erro ao gerar explicação: " + err.message);
   }
 }
