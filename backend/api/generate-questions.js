@@ -28,7 +28,7 @@ O formato do array JSON deve ser:
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
-    let text = result.response.text;
+    let text = result.response.text();
     
     // 1. Tenta extrair o bloco de código Markdown (se houver)
     const jsonMatch = text.match(/```json\n([\s\S]*?)\n```/);
