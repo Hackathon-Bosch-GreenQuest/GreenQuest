@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://cinda-combustive-supersagaciously.ngrok-free.dev ';
+const API_BASE_URL = 'https://cinda-combustive-supersagaciously.ngrok-free.dev';
 
 /**
  * Tenta encontrar o usuário pelo nome. Se não encontrar, cadastra um novo.
