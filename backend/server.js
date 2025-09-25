@@ -27,7 +27,7 @@ Formato JSON:
   "respostaCorreta": "opção correta"
 }`;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent(prompt);
     let text = result.response.text();
 
@@ -61,7 +61,7 @@ Explique de forma clara e resumida porque a resposta correta para a pergunta "${
 A resposta escolhida foi "${escolha}".
 `;
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
     const result = await model.generateContent(prompt);
     const explicacao = result.response.text();
 
