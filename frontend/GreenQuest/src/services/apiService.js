@@ -19,7 +19,7 @@ export const signInOrSignUpUser = async (nome) => {
     // 2. SE NÃO ENCONTRAR NINGUÉM, FAZ O CADASTRO (POST)
     const novoUsuario = {
         // Criar um ID único é CRUCIAL, use o nome como ID ou crie um UUID
-        // Para simplificar no hackathon, usaremos o próprio nome como ID
+        // Para simplificar, usaremos o próprio nome como ID
         id: nome.toLowerCase().replace(/\s/g, '_'), 
         nome: nome,
         pontuacaoTotal: 0,

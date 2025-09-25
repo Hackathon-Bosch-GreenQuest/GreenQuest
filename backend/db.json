@@ -2,9 +2,21 @@
   "users": [
     {
       "id": "player_12345",
-      "nome": "Admin Teste",  
+      "nome": "Admin Teste",
       "pontuacaoTotal": 500,
       "quizScore": 500
+    },
+    {
+      "id": "pao",
+      "nome": "Pao",
+      "pontuacaoTotal": 0,
+      "quizScore": 0
+    },
+    {
+      "id": "carlos",
+      "nome": "Carlos",
+      "pontuacaoTotal": 0,
+      "quizScore": 0
     }
   ],
   "ranking": [

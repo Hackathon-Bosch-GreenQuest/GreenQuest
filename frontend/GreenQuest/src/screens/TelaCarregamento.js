@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import { View, Text, Button, Modal, TextInput, StyleSheet, Image } from "react-native";
+import { signInOrSignUpUser } from '../services/apiService';
 
 export default function TelaCarregamento({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [nome, setNome] = useState("");
 
-  const entrar = () => {
-    if (nome.trim() !== "") {
-      setModalVisible(false);
-      // leva para a tela do Quiz passando o nome
-      navigation.navigate("TelaHistoria", { usuario: nome });
+  const entrar = async () => {
+    if (nome.trim() === "") {
+        alert("Digite seu nome!");
+        return;
     }
-  };
+
+    try {
+        // Chama a função que faz o LOGIN OU CADASTRO
+        const user = await signInOrSignUpUser(nome); 
+        
+        // Sucesso: fecha o modal e navega, passando o ID e Nome
+        setModalVisible(false);
+        navigation.navigate("TelaHistoria", { 
+            usuarioId: user.id, 
+            nome: user.nome 
+        }); 
+
+    } catch (error) {
+        alert("Erro ao conectar com a API. Verifique o JSON Server.");
+        console.error(error);
+    }
+};
 
   return (
     <View style={styles.container}>
